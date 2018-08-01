@@ -88,28 +88,33 @@ Bina<-function(data,cutoff){
 	data[data>=cutoff]=1
 	return(data)
 }
+RankGene<-function(k,MNN,HamD,geneName,MNNIndex){
+	x=HamD[k,]
+	xrank=rank(-x)
+	MNNgene=geneName[xrank<=MNN&x>MNNIndex]
+	return(MNNgene)
+}
+MNNpair<-function(k,MNNgene,geneName){
+	subgene=MNNgene[[k]]
+	index=match(subgene,geneName)
+	PP<-function(i,index,MNNgene,k,geneName){
+		if (geneName[k] %in% MNNgene[[index[i]]])
+			return(geneName[index[i]])
+	}
+	if(length(index[!is.na(index)])>0){
+		a=do.call(cbind,lapply(1:length(index),PP,index=index,MNNgene=MNNgene,k=k,geneName=geneName))
+		if (!is.null(a)){
+			return(a)
+		}
+	}
+}
 getMNN<-function(HamD,genename,MNN,MNNIndex){
-	RankGene<-function(k,MNN,HamD,geneName){
-		x=HamD[k,]
-		xrank=rank(-x)
-		MNNgene=geneName[xrank<=MNN&x>MNNIndex]
-		return(MNNgene)
-	}
-	MNNgene=lapply(1:dim(HamD)[1],RankGene,MNN=MNN,HamD=HamD,geneName=genename)
-	MNNpair<-function(k,MNNgene,geneName){
-		subgene=MNNgene[[k]]
-		index=match(subgene,geneName)
-		PP<-function(i,index,MNNgene,k,geneName){
-			if (geneName[k] %in% MNNgene[[index[i]]])
-				return(geneName[index[i]])
-		}
-		if(length(index[!is.na(index)])>0){
-			a=do.call(cbind,lapply(1:length(index),PP,index=index,MNNgene=MNNgene,k=k,geneName=geneName))
-			if (!is.null(a)){
-				return(a)
-			}
-		}
-	}
+	MNNgene=lapply(1:dim(HamD)[1],RankGene,MNN=MNN,HamD=HamD,geneName=genename,MNNIndex=MNNIndex)
+	genePair=unique(as.character(do.call(cbind,lapply(1:length(MNNgene),MNNpair,MNNgene=MNNgene,geneName=genename))))
+	return(genePair)
+}
+getMEN<-function(HamDD,genename,MNN,MNNIndex){
+	MNNgene=lapply(1:dim(HamDD)[1],RankGene,MNN=MNN,HamD=HamDD,geneName=genename,MNNIndex=MNNIndex)
 	genePair=unique(as.character(do.call(cbind,lapply(1:length(MNNgene),MNNpair,MNNgene=MNNgene,geneName=genename))))
 	return(genePair)
 }
@@ -120,8 +125,10 @@ getMarker<-function(filterres,MNN,MNNIndex){
 	geneindex=rowSums(binadata)
 	HamD=tcrossprod(binadata)
 	diag(HamD)=0
-	marker=getMNN(HamD=HamD,genename=genename,MNN=MNN,MNNIndex=MNNIndex)
-	filterres$marker=marker
+	HamDD=tcrossprod((1-binadata),binadata)
+	MNNmarker=getMNN(HamD=HamD,genename=genename,MNN=MNN,MNNIndex=MNNIndex)
+	MENmarker=getMEN(HamD=HamDD,genename=genename,MNN=MNN,MNNIndex=MNNIndex)
+	filterres$marker=union(MNNmarker,MENmarker)
 	return(filterres)
 }
 
