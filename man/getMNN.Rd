@@ -32,6 +32,7 @@ The minimum number which is the coexpressed cells for each gene pairs
 %%  ~Describe the value returned
 %%  If it is a LIST, use
 %%  \item{comp1 }{Description of 'comp1'}
+%%  \item{comp2 }{Description of 'comp2'}
 A list including the MNN nearest neighbors which co-expressed in more than MNNindex samples.
 }
 \references{
@@ -47,19 +48,18 @@ A list including the MNN nearest neighbors which co-expressed in more than MNNin
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
+%% ~~objects to See Also as \code{\link{help}}, ~~~
 getMarker
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
 data(melanoma)
 melanoma1=as.matrix(melanoma[,2:dim(melanoma)[2]])
 row.names(melanoma1)=melanoma[,1]
-filterres=ModalFilter(data=melanoma1,geneK=10,cellK=10,width=2,cutoff=2)
-filterres=GeneFilter(filterres=filterres,maxexp=dim(filterres$data)[1]*0.8)
+res=ModalFilter(data=melanoma1,geneK=10,cellK=10,width=2,cutoff=2)
+res=GeneFilter(obj=res)
 data = filterres$data
-binadata = filterres$binadata
+data = res$newdata
+binadata = res$binadata
 genename = row.names(binadata)
 HamD = tcrossprod(binadata)
 diag(HamD) = 0
@@ -69,29 +69,8 @@ marker = getMNN(HamD = HamD, genename = genename,
 ## The function is currently defined as
 function (HamD, genename, MNN, MNNIndex) 
 {
-    RankGene <- function(k, MNN, HamD, geneName) {
-        x = HamD[k, ]
-        xrank = rank(-x)
-        MNNgene = geneName[xrank <= MNN & x > MNNIndex]
-        return(MNNgene)
-    }
     MNNgene = lapply(1:dim(HamD)[1], RankGene, MNN = MNN, HamD = HamD, 
-        geneName = genename)
-    MNNpair <- function(k, MNNgene, geneName) {
-        subgene = MNNgene[[k]]
-        index = match(subgene, geneName)
-        PP <- function(i, index, MNNgene, k, geneName) {
-            if (geneName[k] \%in\% MNNgene[[index[i]]]) 
-                return(geneName[index[i]])
-        }
-        if (length(index[!is.na(index)]) > 0) {
-            a = do.call(cbind, lapply(1:length(index), PP, index = index, 
-                MNNgene = MNNgene, k = k, geneName = geneName))
-            if (!is.null(a)) {
-                return(a)
-            }
-        }
-    }
+        geneName = genename, MNNIndex = MNNIndex)
     genePair = unique(as.character(do.call(cbind, lapply(1:length(MNNgene), 
         MNNpair, MNNgene = MNNgene, geneName = genename))))
     return(genePair)
@@ -99,5 +78,5 @@ function (HamD, genename, MNN, MNNIndex)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
+\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
 \keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

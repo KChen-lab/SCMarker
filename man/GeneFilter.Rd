@@ -8,15 +8,12 @@ Filtering gene
 Filtering genes which are widely expressed in most of the cell population.
 }
 \usage{
-GeneFilter(filterres, maxexp)
+GeneFilter(obj)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{filterres}{
+  \item{obj}{
 The list object from function ModalFilter
-}
-  \item{maxexp}{
-The maxmum number of expressed sampels. That means the gene would be filtered if it expressed in more then the maxexp number of cells.
 }
 }
 \details{
@@ -44,39 +41,38 @@ The maxmum number of expressed sampels. That means the gene would be filtered if
 ModalFilter
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
 data(melanoma)
 melanoma1=as.matrix(melanoma[,2:dim(melanoma)[2]])
 row.names(melanoma1)=melanoma[,1]
 res=ModalFilter(data=melanoma1,geneK=10,cellK=10,width=2,cutoff=2)
-res=GeneFilter(filterres=res,maxexp=dim(res$data)[2]*0.8)
+res=GeneFilter(obj=res)
+
 
 ## The function is currently defined as
-function (filterres, maxexp) 
+function (obj) 
 {
+    maxexp = dim(obj$newdata)[2]
     data(excludeGene)
     excludeGene = as.character(excludeGene[, 1])
-    geneSumm = filterres$geneSumm
+    geneSumm = obj$geneSumm
     index = match(geneSumm$gene, excludeGene)
     geneSumm = geneSumm[is.na(index), ]
-    data = filterres$data
+    data = obj$newdata
     index = match(geneSumm$gene, row.names(data))
     data = data[index, ]
-    binadata = filterres$binadata
+    binadata = obj$binadata
     binadata = binadata[index, ]
     geneindex = rowSums(binadata)
     binadata = binadata[geneindex < maxexp, ]
     data = data[geneindex < maxexp, ]
     geneSumm = geneSumm[geneindex < maxexp, ]
-    filterres$data = data
-    filterres$geneSumm = geneSumm
-    filterres$binadata = as.matrix(binadata)
-    return(filterres)
+    obj$newdata = data
+    obj$geneSumm = geneSumm
+    obj$binadata = as.matrix(binadata)
+    return(obj)
   }
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
+\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
 \keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

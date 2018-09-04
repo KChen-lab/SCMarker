@@ -42,9 +42,6 @@ The value corresponding to each peak
 genepeak, ModalFilter
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
 x=c(rnorm(50,4,0.5),rep(0,length=20))
 pp=density(x)
 peak(pp)
@@ -69,5 +66,5 @@ function (pp)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
+\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
 \keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

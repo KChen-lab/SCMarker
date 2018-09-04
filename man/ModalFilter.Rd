@@ -8,7 +8,7 @@ Filtering genes with unimodal distribution
 Filtering genes(cells) that expressed (non zero) distribution is similar with normal distribution.
 }
 \usage{
-ModalFilter(data, geneK, cellK, width, cutoff)
+ModalFilter(data, geneK, cellK, width = 1, cutoff = 2)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -22,10 +22,10 @@ The least number of genes which expressed in a cell
 The least number of cells which have expression for a gene
 }
   \item{width}{
-The numeric width which is used to estimate probability density distribution function
+The numeric width which is used to estimate probability density distribution function, default 1.
 }
   \item{cutoff}{
-The numeric width which is used to estimate probability density distribution function
+The numeric width which is used to estimate probability density distribution function, default 2.
 }
 }
 \details{
@@ -58,22 +58,20 @@ The numeric width which is used to estimate probability density distribution fun
 peak, genepeak
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
 data(melanoma)
 melanoma1=as.matrix(melanoma[,2:dim(melanoma)[2]])
 row.names(melanoma1)=melanoma[,1]
-filterres=ModalFilter(data=melanoma1,geneK=10,cellK=10,width=2,cutoff=2)
+res=ModalFilter(data=melanoma1,geneK=10,cellK=10)
 
 ## The function is currently defined as
-function (data, geneK, cellK, width, cutoff) 
+function (data, geneK, cellK, width = 1, cutoff = 2) 
 {
+    rawdata = data
     cellSumm = data.frame(cell = colnames(data))
     cellSumm$count <- sapply(1:dim(data)[2], genecount, data = data, 
         index = "col")
     data = data[, cellSumm$count > cellK]
-    binadata = Bina(data, cutoff = 2)
+    binadata = Bina(data, cutoff = cutoff)
     geneSumm = data.frame(gene = row.names(data))
     geneSumm$count <- rowSums(binadata)
     data = data[geneSumm$count > geneK, ]
@@ -84,12 +82,12 @@ function (data, geneK, cellK, width, cutoff)
     data = data[geneSumm$exppeak >= 2, ]
     binadata = binadata[geneSumm$exppeak >= 2, ]
     geneSumm = geneSumm[geneSumm$exppeak >= 2, ]
-    filterres = list(data = data, geneSumm = geneSumm, cellSumm = cellSumm, 
-        binadata = binadata)
-    return(filterres)
+    obj = list(rawdata = rawdata, newdata = data, geneSumm = geneSumm, 
+        cellSumm = cellSumm, binadata = binadata)
+    return(obj)
   }
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
+\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
 \keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

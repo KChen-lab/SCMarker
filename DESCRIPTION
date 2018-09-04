@@ -1,11 +1,9 @@
 Package: SCMarker
 Type: Package
-Title: Marker selection on single cell RNA-seq data
-Version: 1.0
-Date: 2018-06-08
+Title: What the package does (short line)
+Version: 2.0
+Date: 2018-09-04
 Author: Fang Wang
 Maintainer: Fang Wang <fwang9@mdanderson.org>,<wfang0828@gmail.com>
-Description: MarkerSC is used to selecte feature on single cell RNA-seq data based on the hypotheses of bi(multi)modal distribution and mutual nearest co-expression neighbors. The selected features would improve clustering of single cell data.
+Description: SCMarker is about marker selection on single cell RNA sequenceing data. This package implement the marker selection algorithm developed by Fang Wang. It provides the user with tools for generating features to further clustering. This is done based on two hypotheses. One is that gene should follow bi/multi-modal distribution in a mixed cell population if it is a marker of a specific cell type. The second is that genes which are the markers of the same cell type should co-express in the same cells and mutually exclusive with genes which are markers of different cell type.
 License: GPL(>=2)
-NeedsCompilation: no
-Packaged: 2018-06-11 16:27:11 UTC; fwang9

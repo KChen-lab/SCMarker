@@ -8,7 +8,7 @@ Discretized matrix
 Discretizing a matrix of continuous value to binary value 
 }
 \usage{
-Bina(data, cutoff)
+Bina(data, cutoff = 2)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -24,6 +24,7 @@ A numeric threshold. If the value in data is less than threshold, it is set as 0
 }
 \value{
 Binary matrix}
+}
 \references{
 %% ~put references to the literature/web site here ~
 }
@@ -45,7 +46,7 @@ melanoma1=as.matrix(melanoma[,2:dim(melanoma)[2]])
 row.names(melanoma1)=melanoma[,1]
 Bina(melanoma1)
 ## The function is currently defined as
-function (data, cutoff) 
+function (data, cutoff = 2) 
 {
     data[data < cutoff] = 0
     data[data >= cutoff] = 1
@@ -54,5 +55,5 @@ function (data, cutoff)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
+\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
 \keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

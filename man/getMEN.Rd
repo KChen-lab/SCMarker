@@ -51,16 +51,13 @@ A list including the MNN nearest neighbors which mutually exclusive in more than
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
 data(melanoma)
 melanoma1=as.matrix(melanoma[,2:dim(melanoma)[2]])
 row.names(melanoma1)=melanoma[,1]
-filterres=ModalFilter(data=melanoma1,geneK=10,cellK=10,width=2,cutoff=2)
-filterres=GeneFilter(filterres=filterres,maxexp=dim(filterres$data)[1]*0.8)
-data = filterres$data
-binadata = filterres$binadata
+res=ModalFilter(data=melanoma1,geneK=10,cellK=10,width=2,cutoff=2)
+res=GeneFilter(obj=res)
+data = res$newdata
+binadata = res$binadata
 genename = row.names(binadata)
 HamDD = tcrossprod((1 - binadata), binadata)
 marker = getMEN(HamDD = HamDD, genename = genename, 
