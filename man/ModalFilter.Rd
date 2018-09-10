@@ -36,10 +36,10 @@ The numeric width which is used to estimate probability density distribution fun
 %%  If it is a LIST, use
 %%  \item{comp1 }{Description of 'comp1'}
 %%  \item{comp2 }{Description of 'comp2'}
-\res{data}{The raw expresion data after filter genes or cells which less than cellK or geneK}
-\res{geneSumm}{A data frame including gene names as, corresponding number of expressed cells and the peak number of probability density distribution function}
-\res{cellSumm}{A data frame including cell ID and corresponding number of expressed genes}
-\res{binadata}{The binary expression matrix corresponding to raw data}
+{data}{The raw expresion data after filter genes or cells which less than cellK or geneK}
+{geneSumm}{A data frame including gene names as, corresponding number of expressed cells and the peak number of probability density distribution function}
+{cellSumm}{A data frame including cell ID and corresponding number of expressed genes}
+{binadata}{The binary expression matrix corresponding to raw data}
 
 }
 \references{
@@ -64,11 +64,11 @@ row.names(melanoma1)=melanoma[,1]
 res=ModalFilter(data=melanoma1,geneK=10,cellK=10)
 
 ## The function is currently defined as
-function (data, geneK, cellK, width = 1, cutoff = 2) 
+function (data, geneK, cellK, width = 1, cutoff = 2)
 {
     rawdata = data
     cellSumm = data.frame(cell = colnames(data))
-    cellSumm$count <- sapply(1:dim(data)[2], genecount, data = data, 
+    cellSumm$count <- sapply(1:dim(data)[2], genecount, data = data,
         index = "col")
     data = data[, cellSumm$count > cellK]
     binadata = Bina(data, cutoff = cutoff)
@@ -82,7 +82,7 @@ function (data, geneK, cellK, width = 1, cutoff = 2)
     data = data[geneSumm$exppeak >= 2, ]
     binadata = binadata[geneSumm$exppeak >= 2, ]
     geneSumm = geneSumm[geneSumm$exppeak >= 2, ]
-    obj = list(rawdata = rawdata, newdata = data, geneSumm = geneSumm, 
+    obj = list(rawdata = rawdata, newdata = data, geneSumm = geneSumm,
         cellSumm = cellSumm, binadata = binadata)
     return(obj)
   }

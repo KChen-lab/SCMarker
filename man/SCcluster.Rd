@@ -24,9 +24,9 @@ The list objective from the function getMarker
 %%  If it is a LIST, use
 %%  \item{comp1 }{Description of 'comp1'}
 %%  \item{comp2 }{Description of 'comp2'}
-\res{tsne}{tSNE embeding from Seurat}
-\res{seuratCluster}{Cluster results from Seurat}
-\res{dbscanCluster}{Cluster results from dbscan}
+{tsne}{tSNE embeding from Seurat}
+{seuratCluster}{Cluster results from Seurat}
+{dbscanCluster}{Cluster results from dbscan}
 }
 \references{
 %% ~put references to the literature/web site here ~
@@ -52,22 +52,22 @@ res=GeneFilter(obj=res)
 res=getMarker(obj=res,MNN=200,MNNIndex=20)
 res=SCcluster(obj=res)
 ## The function is currently defined as
-function (obj) 
+function (obj)
 {
     data = obj$rawdata
     marker = obj$marker
-    pbmc <- CreateSeuratObject(raw.data = data, min.cells = 3, 
+    pbmc <- CreateSeuratObject(raw.data = data, min.cells = 3,
         min.genes = 200, project = "project")
-    pbmc <- NormalizeData(object = pbmc, normalization.method = "LogNormalize", 
+    pbmc <- NormalizeData(object = pbmc, normalization.method = "LogNormalize",
         scale.factor = 10000)
-    pbmc <- FindVariableGenes(object = pbmc, mean.function = ExpMean, 
-        dispersion.function = LogVMR, x.low.cutoff = 0.0125, 
+    pbmc <- FindVariableGenes(object = pbmc, mean.function = ExpMean,
+        dispersion.function = LogVMR, x.low.cutoff = 0.0125,
         x.high.cutoff = 3, y.cutoff = 0.5)
     pbmc <- ScaleData(object = pbmc)
-    pbmc <- RunPCA(object = pbmc, pc.genes = gene, do.print = TRUE, 
+    pbmc <- RunPCA(object = pbmc, pc.genes = gene, do.print = TRUE,
         pcs.print = 1:5, genes.print = 5)
-    pbmc <- FindClusters(object = pbmc, reduction.type = "pca", 
-        dims.use = 1:8, resolution = 0.6, print.output = 0, save.SNN = TRUE, 
+    pbmc <- FindClusters(object = pbmc, reduction.type = "pca",
+        dims.use = 1:8, resolution = 0.6, print.output = 0, save.SNN = TRUE,
         force.recalc = TRUE)
     pbmc <- RunTSNE(object = pbmc, dims.use = 1:15, do.fast = TRUE)
     TSNE = pbmc@dr$tsne@cell.embeddings
