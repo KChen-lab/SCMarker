@@ -1,5 +1,5 @@
 # TODO: Add comment
-# 
+#
 # Author: FWang9
 ###############################################################################
 
@@ -144,16 +144,16 @@ getMarker<-function(obj,MNN,MNNIndex){
 SCcluster<-function(obj){
 	data=obj$rawdata
 	marker=obj$marker
-	pbmc <- CreateSeuratObject(raw.data = data, min.cells = 3, min.genes = 200, 
+	pbmc <- CreateSeuratObject(raw.data = data, min.cells = 3, min.genes = 200,
 	                           project = "project")
-	pbmc <- NormalizeData(object = pbmc, normalization.method = "LogNormalize", 
+	pbmc <- NormalizeData(object = pbmc, normalization.method = "LogNormalize",
 	                      scale.factor = 10000)
-	pbmc <- FindVariableGenes(object = pbmc, mean.function = ExpMean, dispersion.function = LogVMR, 
+	pbmc <- FindVariableGenes(object = pbmc, mean.function = ExpMean, dispersion.function = LogVMR,
 	                          x.low.cutoff = 0.0125, x.high.cutoff = 3, y.cutoff = 0.5)
 	pbmc <- ScaleData(object = pbmc)
-	pbmc <- RunPCA(object = pbmc, pc.genes = gene, do.print = TRUE, pcs.print = 1:5, 
+	pbmc <- RunPCA(object = pbmc, pc.genes = marker, do.print = TRUE, pcs.print = 1:5,
 	                genes.print = 5)
-	pbmc <- FindClusters(object = pbmc, reduction.type = "pca", dims.use = 1:8, 
+	pbmc <- FindClusters(object = pbmc, reduction.type = "pca", dims.use = 1:8,
 	                      resolution = 0.6, print.output = 0, save.SNN = TRUE,force.recalc=TRUE)
 	pbmc <- RunTSNE(object = pbmc, dims.use = 1:15, do.fast = TRUE)
 	TSNE=pbmc@dr$tsne@cell.embeddings
@@ -183,7 +183,7 @@ getClusterGene<-function(obj,method){
 		gene$gene=marker
 		obj$clustergene=gene
 		obj$method=method
-	} 
+	}
 	return(obj)
 }
 
@@ -206,7 +206,7 @@ HeatmapCluster<-function(obj,top,scale="none"){
   	}
   	row.names(genemean)=topmarker$gene
   	colnames(genemean)=clustertype
-  	
+
   	mat_col <- data.frame(cluster=levels(factor(cluster)))
 	row.names(mat_col) <- levels(factor(cluster))
 	mat_colors <- list(cluster=rainbow(length(clustertype)))
