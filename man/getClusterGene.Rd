@@ -27,7 +27,7 @@ clutering results from "Seurat" or "dbscan"
 %%  If it is a LIST, use
 %%  \item{comp1 }{Description of 'comp1'}
 %%  \item{comp2 }{Description of 'comp2'}
-\res{clustergene}{A data frame including cluster specfic genes}
+{clustergene}{A data frame including cluster specfic genes}
 }
 \references{
 %% ~put references to the literature/web site here ~
@@ -55,12 +55,12 @@ res=SCcluster(obj=res)
 res=getClusterGene(obj=res,method="Seurat")
 
 ## The function is currently defined as
-function (obj, method) 
+function (obj, method)
 {
     marker = obj$marker
     if (method == "Seurat") {
         seuratCluster = obj$seuratCluster
-        gene = get_marker_genes(obj$rawdata[marker, names(seuratCluster)], 
+        gene = get_marker_genes(obj$rawdata[marker, names(seuratCluster)],
             seuratCluster)
         gene$gene = marker
         obj$clustergene = gene
@@ -68,7 +68,7 @@ function (obj, method)
     }
     else if (method == "dbscan") {
         dbscanCluster = obj$dbscanCluster
-        gene = get_marker_genes(obj$rawdata[marker, names(dbscanCluster)], 
+        gene = get_marker_genes(obj$rawdata[marker, names(dbscanCluster)],
             dbscanCluster)
         gene$gene = marker
         obj$clustergene = gene
