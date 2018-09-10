@@ -74,7 +74,7 @@ HeatmapCluster<-function(obj,top,scale="none"){
     }
     row.names(genemean)=topmarker$gene
     colnames(genemean)=clustertype
-    
+
     mat_col <- data.frame(cluster=levels(factor(cluster)))
     row.names(mat_col) <- levels(factor(cluster))
     mat_colors <- list(cluster=rainbow(length(clustertype)))
@@ -83,5 +83,3 @@ HeatmapCluster<-function(obj,top,scale="none"){
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

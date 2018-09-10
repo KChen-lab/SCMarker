@@ -20,10 +20,10 @@ The list object from function ModalFilter
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-\res{data}{The raw expresion data after filter widly expressed genes}
-\res{geneSumm}{A data frame including gene names as, corresponding number of expressed cells and the peak number of probability density distribution function}
-\res{cellSumm}{A data frame including cell ID and corresponding number of expressed genes}
-\res{binadata}{The binary expression matrix corresponding to raw data}
+{data}{The raw expresion data after filter widly expressed genes}
+{geneSumm}{A data frame including gene names as, corresponding number of expressed cells and the peak number of probability density distribution function}
+{cellSumm}{A data frame including cell ID and corresponding number of expressed genes}
+{binadata}{The binary expression matrix corresponding to raw data}
 }
 \references{
 %% ~put references to the literature/web site here ~
@@ -49,7 +49,7 @@ res=GeneFilter(obj=res)
 
 
 ## The function is currently defined as
-function (obj) 
+function (obj)
 {
     maxexp = dim(obj$newdata)[2]
     data(excludeGene)

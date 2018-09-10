@@ -5,7 +5,7 @@
 Discretized matrix
 }
 \description{
-Discretizing a matrix of continuous value to binary value 
+Discretizing a matrix of continuous value to binary value
 }
 \usage{
 Bina(data, cutoff = 2)
@@ -23,7 +23,7 @@ A numeric threshold. If the value in data is less than threshold, it is set as 0
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-Binary matrix}
+{Binary matrix}
 }
 \references{
 %% ~put references to the literature/web site here ~
@@ -46,7 +46,7 @@ melanoma1=as.matrix(melanoma[,2:dim(melanoma)[2]])
 row.names(melanoma1)=melanoma[,1]
 Bina(melanoma1)
 ## The function is currently defined as
-function (data, cutoff = 2) 
+function (data, cutoff = 2)
 {
     data[data < cutoff] = 0
     data[data >= cutoff] = 1
