@@ -81,5 +81,3 @@ HeatmapCluster<-function(obj,top,scale="none"){
     names(mat_colors$cluster)=levels(factor(cluster))
     pheatmap(genemean,cluster_cols = F,scale=scale,cluster_rows = F,show_colnames=F,annotation_col = mat_col,annotation_colors = mat_colors)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
