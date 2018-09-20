@@ -27,7 +27,7 @@ Usage
 ----------------------
 
 ```R
-install.packages("SCMarker_2.0.tar.gz",repos=NULL,type="source")
+library(SCMarker)
 data(melanoma)
 melanoma1=as.matrix(melanoma[,2:dim(melanoma)[2]])
 row.names(melanoma1)=melanoma[,1]
