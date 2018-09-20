@@ -8,7 +8,7 @@ Mutually nearest exclusive gene pairs
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-getMEN(HamDD, genename, MNN, MNNIndex)
+getMEN(HamDD, genename, k, n)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -18,10 +18,10 @@ A matrix from multiplicate of binary data tcrossprod((1 - binadata), binadata).
   \item{genename}{
 The rownames and colnames of matrix HamDD
 }
-  \item{MNN}{
+  \item{k}{
 The maximum number that how many nearest neighbors would be considered.
 }
-  \item{MNNIndex}{
+  \item{n}{
 The minimum number which is the coexpressed cells for each gene pairs
 }
 }
@@ -60,15 +60,15 @@ data = res$newdata
 binadata = res$binadata
 genename = row.names(binadata)
 HamDD = tcrossprod((1 - binadata), binadata)
-marker = getMEN(HamDD = HamDD, genename = genename, 
-        MNN = 200, MNNIndex = 20)
+marker = getMEN(HamDD = HamDD, genename = genename,
+        k = 200, n = 20)
 
 ## The function is currently defined as
-function (HamDD, genename, MNN, MNNIndex) 
+function (HamDD, genename, k, n)
 {
-    MNNgene = lapply(1:dim(HamDD)[1], RankGene, MNN = MNN, HamD = HamDD, 
-        geneName = genename, MNNIndex = MNNIndex)
-    genePair = unique(as.character(do.call(cbind, lapply(1:length(MNNgene), 
+    MNNgene = lapply(1:dim(HamDD)[1], RankGene, k = k, HamD = HamDD,
+        geneName = genename, n = n)
+    genePair = unique(as.character(do.call(cbind, lapply(1:length(MNNgene),
         MNNpair, MNNgene = MNNgene, geneName = genename))))
     return(genePair)
   }

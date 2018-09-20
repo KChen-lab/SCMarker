@@ -9,18 +9,18 @@ Selecting markers if gene pairs are mutual nearest coexpressed or exclusivity in
 
 }
 \usage{
-getMarker(obj, MNN, MNNIndex)
+getMarker(obj, k=300, n=30)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{obj}{
 The list oject from function GeneFilter
 }
-  \item{MNN}{
-The maximum number that how many nearest neighbors would be considered.
+  \item{k}{
+The maximum number that how many nearest neighbors would be considered, default = 300.
 }
-  \item{MNNIndex}{
-The minimum number which is the coexpressed/mutually exclusivie cells for each gene pairs
+  \item{n}{
+The minimum number which is the coexpressed/mutually exclusivie cells for each gene pairs, default = 30
 }
 }
 \details{
@@ -54,10 +54,12 @@ melanoma1=as.matrix(melanoma[,2:dim(melanoma)[2]])
 row.names(melanoma1)=melanoma[,1]
 res=ModalFilter(data=melanoma1,geneK=10,cellK=10,width=2,cutoff=2)
 res=GeneFilter(obj=res)
-res=getMarker(obj=res,MNN=200,MNNIndex=20)
+res=getMarker(obj=res)
+res=getMarker(obj=res,k=200,n=20)
+
 
 ## The function is currently defined as
-function (obj, MNN, MNNIndex)
+function (obj, k=300, n=30)
 {
     data = obj$newdata
     binadata = obj$binadata
@@ -66,10 +68,10 @@ function (obj, MNN, MNNIndex)
     HamD = tcrossprod(binadata)
     diag(HamD) = 0
     HamDD = tcrossprod((1 - binadata), binadata)
-    MNNmarker = getMNN(HamD = HamD, genename = genename, MNN = MNN,
-        MNNIndex = MNNIndex)
-    MENmarker = getMEN(HamD = HamDD, genename = genename, MNN = MNN,
-        MNNIndex = MNNIndex)
+    MNNmarker = getMNN(HamD = HamD, genename = genename, k = k,
+        n = n)
+    MENmarker = getMEN(HamD = HamDD, genename = genename, k = k,
+        n = n)
     obj$marker = union(MNNmarker, MENmarker)
     return(obj)
   }

@@ -8,7 +8,7 @@ Mutual nearest coexpressed gene pairs
 Idenitify mutual nearest expressed gene pairs based on binary expression data
 }
 \usage{
-getMNN(HamD, genename, MNN, MNNIndex)
+getMNN(HamD, genename, k, n)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -18,10 +18,10 @@ A matrix from multiplicate of binary data tcrossprod(binadata) and diag are zero
   \item{genename}{
 The rownames and colnames of matrix HamD
 }
-  \item{MNN}{
+  \item{k}{
 The maximum number that how many nearest neighbors would be considered.
 }
-  \item{MNNIndex}{
+  \item{n}{
 The minimum number which is the coexpressed cells for each gene pairs
 }
 }
@@ -63,15 +63,15 @@ binadata = res$binadata
 genename = row.names(binadata)
 HamD = tcrossprod(binadata)
 diag(HamD) = 0
-marker = getMNN(HamD = HamD, genename = genename, 
-        MNN = 200, MNNIndex = 20)
+marker = getMNN(HamD = HamD, genename = genename,
+        k = 200, n = 20)
 
 ## The function is currently defined as
-function (HamD, genename, MNN, MNNIndex) 
+function (HamD, genename, k, n)
 {
-    MNNgene = lapply(1:dim(HamD)[1], RankGene, MNN = MNN, HamD = HamD, 
-        geneName = genename, MNNIndex = MNNIndex)
-    genePair = unique(as.character(do.call(cbind, lapply(1:length(MNNgene), 
+    MNNgene = lapply(1:dim(HamD)[1], RankGene, k = k, HamD = HamD,
+        geneName = genename, n = n)
+    genePair = unique(as.character(do.call(cbind, lapply(1:length(MNNgene),
         MNNpair, MNNgene = MNNgene, geneName = genename))))
     return(genePair)
   }

@@ -8,14 +8,14 @@ gene pair order
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-RankGene(k, MNN, HamD, geneName, MNNIndex)
+RankGene(kk, k, HamD, geneName, n)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{k}{
+  \item{kk}{
 %%     ~~Describe \code{k} here~~
 }
-  \item{MNN}{
+  \item{k}{
 %%     ~~Describe \code{MNN} here~~
 }
   \item{HamD}{
@@ -24,7 +24,7 @@ RankGene(k, MNN, HamD, geneName, MNNIndex)
   \item{geneName}{
 %%     ~~Describe \code{geneName} here~~
 }
-  \item{MNNIndex}{
+  \item{n}{
 %%     ~~Describe \code{MNNIndex} here~~
 }
 }
@@ -59,11 +59,11 @@ RankGene(k, MNN, HamD, geneName, MNNIndex)
 ##--	or do  help(data=index)  for the standard data sets.
 
 ## The function is currently defined as
-function (k, MNN, HamD, geneName, MNNIndex) 
+function (kk, k, HamD, geneName, n)
 {
     x = HamD[k, ]
     xrank = rank(-x)
-    MNNgene = geneName[xrank <= MNN & x > MNNIndex]
+    MNNgene = geneName[xrank <= k & x > n]
     return(MNNgene)
   }
 }
