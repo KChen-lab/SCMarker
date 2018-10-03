@@ -35,6 +35,8 @@ res=ModalFilter(data=melanoma1,geneK=10,cellK=10,width=2)# default width = 1 for
 res=GeneFilter(obj=res)
 res=getMarker(obj=res,k=300,n=30)
 head(res$marker)
+
+
 ##Integrating with other analyses
 library(SingleCellExperiment)
 library(SC3)
