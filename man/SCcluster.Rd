@@ -54,8 +54,12 @@ res=SCcluster(obj=res)
 ## The function is currently defined as
 function (obj)
 {
-    data = obj$rawdata
-    marker = obj$marker
+    data=obj$rawdata
+    gene=row.names(data)
+    gene=unique(gene)
+    index=match(gene,row.names(data))
+    data=data[index,]
+    marker=obj$marker
     pbmc <- CreateSeuratObject(raw.data = data, min.cells = 3,
         min.genes = 200, project = "project")
     pbmc <- NormalizeData(object = pbmc, normalization.method = "LogNormalize",

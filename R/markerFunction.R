@@ -3,12 +3,6 @@
 # Author: FWang9
 ###############################################################################
 
-library(SingleCellExperiment)
-library(SC3)
-library(scater)
-library(dplyr)
-library(pheatmap)
-library(Seurat)
 
 ####preprocess data
 ##count expression cell or gene
@@ -143,6 +137,10 @@ getMarker<-function(obj,k=300,n=30){
 ######cluster
 SCcluster<-function(obj){
 	data=obj$rawdata
+	gene=row.names(data)
+	gene=unique(gene)
+	index=match(gene,row.names(data))
+	data=data[index,]
 	marker=obj$marker
 	pbmc <- CreateSeuratObject(raw.data = data, min.cells = 3, min.genes = 200,
 	                           project = "project")
