@@ -4,8 +4,8 @@ SCMarker performs cell-type-specific marker selection from single cell RNA seque
 It provides users a tool for selecting features from tens of thousands of genes for further cell-type clustering analysis. 
 
 SCMarker is done based on two hypotheses: 
-First, the expression of a gene should follow bi/multi-modal distribution in a mixed cell population if it is a marker of a specific cell-type. 
-Second, marker genes of a cell type express synergistically in a subset of cells.
+1) The expression of a gene should follow bi/multi-modal distribution in a mixed cell population if it is a marker of a specific cell-type. 
+2) Marker genes of a cell type express synergistically in a subset of cells.
 
 Developer
 ------------
@@ -16,11 +16,11 @@ Marker selection
 ---------------------
 The three main functions for this package are `ModalFilter()`, `GeneFilter()` and `getMarker()`. 
 
-ModalFilter() performs the initial filter based on the least expressed number of genes(cells) and whether the gene has unimodal distribution. 
+`ModalFilter() performs the initial filter based on the least expressed number of genes(cells) and whether the gene has unimodal distribution. 
 
-GeneFilter() takes the output of ModalFilter() and filters out genes that have unimodal distributed expressions and are expressed in more than maxexp cells.
+`GeneFilter() takes the output of ModalFilter() and filters out genes that have unimodal distributed expressions and are expressed in more than maxexp cells.
 
-getMarker() takes the output of GeneFilter() and selects the final markers based on synergistically (co- or mutual-exclusively) expressed gene pairs. 
+`getMarker() takes the output of GeneFilter() and selects the final markers based on synergistically (co- or mutual-exclusively) expressed gene pairs. 
 
 
 
