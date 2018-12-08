@@ -15,8 +15,11 @@ Fang Wang (fwang9@mdanderson.org)
 Marker selection
 ---------------------
 The three main functions for this package are `ModalFilter()`, `GeneFilter()` and `getMarker()`. 
+
 ModalFilter() performs the initial filter based on the least expressed number of genes(cells) and whether the gene has unimodal distribution. 
+
 GeneFilter() takes the output of ModalFilter() and filters out genes that have unimodal distributed expressions and are expressed in more than maxexp cells.
+
 getMarker() takes the output of GeneFilter() and selects the final markers based on synergistically (co- or mutual-exclusively) expressed gene pairs. 
 
 
