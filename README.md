@@ -1,6 +1,6 @@
 # SCMarker
 
-SCMarker performs cell-type-specific marker selection from single cell RNA sequenceing data. 
+SCMarker performs cell-type-specific marker selection from single cell RNA sequencing data. 
 It provides users a tool for selecting features from tens of thousands of genes for further cell-type clustering analysis. 
 
 SCMarker is done based on two hypotheses: 
