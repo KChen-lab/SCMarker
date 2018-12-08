@@ -1,12 +1,23 @@
 # SCMarker
 
-SCMarker is about marker selection on single cell RNA sequenceing data. This package implement the marker selection algorithm developed by Fang Wang. It provides the user with tools for generating features to further clustering. This is done based on two hypotheses. One is that gene should follow bi/multi-modal distribution in a mixed cell population if it is a marker of a specific cell type. The second is that genes which are the markers of the same cell type should co-express in the same cells.
+SCMarker performs cell-type-specific marker selection from single cell RNA sequenceing data. 
+It provides users a tool for selecting features from tens of thousands of genes for further cell-type clustering analysis. 
 
+SCMarker is done based on two hypotheses: 
+First, the expression of a gene should follow bi/multi-modal distribution in a mixed cell population if it is a marker of a specific cell-type. 
+Second, marker genes of a cell type express synergistically in a subset of cells.
+
+Developer
+------------
+Fang Wang (fwang9@mdanderson.org)
 
 
 Marker selection
 ---------------------
-The three main functions for this package are `ModalFilter()`, `GeneFilter()` and `getMarker()`. The first does the initial filter based on the least expressed number of genes(cells) and whether the gene is unimodal distribution. The second takes the output of `ModalFilter()` and filtered the genes which are unimodal distribution and express in more than maxexp cells. The last takes the output of `geneFilter()` and selects the final markers based on gene pairs which are mutual maximally co-expressed in cells.
+The three main functions for this package are `ModalFilter()`, `GeneFilter()` and `getMarker()`. 
+ModalFilter() performs the initial filter based on the least expressed number of genes(cells) and whether the gene has unimodal distribution. 
+GeneFilter() takes the output of ModalFilter() and filters out genes that have unimodal distributed expressions and are expressed in more than maxexp cells.
+getMarker() takes the output of GeneFilter() and selects the final markers based on synergistically (co- or mutual-exclusively) expressed gene pairs. 
 
 
 
