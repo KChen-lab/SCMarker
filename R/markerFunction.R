@@ -32,9 +32,9 @@ peak<-function(pp){
 	return(Hpeak)
 }
 ###number of peak
-genepeak<-function(x,width=1){
+genepeak<-function(x,width=0.05){
 	if (length(x[x!=0])>1){
-		pp=density(x[x!=0],width=width)
+		pp=density(x[x!=0],bw=width)
 		Hpeak=peak(pp)
 		return(dim(Hpeak)[1])
 	}else{
@@ -43,7 +43,7 @@ genepeak<-function(x,width=1){
 }
 
 #####filter data
-ModalFilter<-function(data,geneK,cellK,width = 1,cutoff = 2){
+ModalFilter<-function(data,geneK,cellK,width = 0.05,cutoff = 2){
 	rawdata=data
 	cellSumm=data.frame(cell=colnames(data))
 	cellSumm$count<-sapply(1:dim(data)[2],genecount,data=data,index="col")

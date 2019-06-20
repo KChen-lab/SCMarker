@@ -1,10 +1,10 @@
 # SCMarker
 
-SCMarker performs cell-type-specific marker selection from single cell RNA sequencing data. 
-It provides users a tool for selecting features from tens of thousands of genes for further cell-type clustering analysis. 
+SCMarker performs cell-type-specific marker selection from single cell RNA sequencing data.
+It provides users a tool for selecting features from tens of thousands of genes for further cell-type clustering analysis.
 
-SCMarker is done based on two hypotheses: 
-1) The expression of a gene should follow bi/multi-modal distribution in a mixed cell population if it is a marker of a specific cell-type. 
+SCMarker is done based on two hypotheses:
+1) The expression of a gene should follow bi/multi-modal distribution in a mixed cell population if it is a marker of a specific cell-type.
 2) Marker genes of a cell type express synergistically in a subset of cells.
 
 Developer
@@ -14,13 +14,13 @@ Fang Wang (fwang9@mdanderson.org)
 
 Marker selection
 ---------------------
-The three main functions for this package are `ModalFilter()`, `GeneFilter()` and `getMarker()`. 
+The three main functions for this package are `ModalFilter()`, `GeneFilter()` and `getMarker()`.
 
-`ModalFilter()` performs the initial filter based on the least expressed number of genes(cells) and whether the gene has unimodal distribution. 
+`ModalFilter()` performs the initial filter based on the least expressed number of genes(cells) and whether the gene has unimodal distribution.
 
 `GeneFilter()` takes the output of ModalFilter() and filters out genes that have unimodal distributed expressions and are expressed in more than maxexp cells.
 
-`getMarker()` takes the output of GeneFilter() and selects the final markers based on synergistically (co- or mutual-exclusively) expressed gene pairs. 
+`getMarker()` takes the output of GeneFilter() and selects the final markers based on synergistically (co- or mutual-exclusively) expressed gene pairs.
 
 
 
@@ -45,7 +45,7 @@ library(SCMarker)
 data(melanoma)
 melanoma1=as.matrix(melanoma[,2:dim(melanoma)[2]])
 row.names(melanoma1)=melanoma[,1]
-res=ModalFilter(data=melanoma1,geneK=10,cellK=10,width=2)# default width = 1 for UMI data, width =2 for TPM data.
+res=ModalFilter(data=melanoma1,geneK=10,cellK=10,width=0.3)# default width = 0.05 for UMI data, width =0.3 for TPM data.
 res=GeneFilter(obj=res)
 res=getMarker(obj=res,k=300,n=30)
 head(res$marker)
