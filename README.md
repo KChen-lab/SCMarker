@@ -45,7 +45,7 @@ library(SCMarker)
 data(melanoma)
 melanoma1=as.matrix(melanoma[,2:dim(melanoma)[2]])
 row.names(melanoma1)=melanoma[,1]
-res=ModalFilter(data=melanoma1,geneK=10,cellK=10,width=0.3)# default width = 0.05 for UMI data, width =0.3 for TPM data.
+res=ModalFilter(data=melanoma1,geneK=10,cellK=10,width=2)# default width = 1 for UMI data, width =2 for TPM data.
 res=GeneFilter(obj=res)
 res=getMarker(obj=res,k=300,n=30)
 head(res$marker)
