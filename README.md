@@ -50,17 +50,6 @@ res=GeneFilter(obj=res)
 res=getMarker(obj=res,k=300,n=30)
 head(res$marker)
 
-
-##Integrating with other analyses
-library(SingleCellExperiment)
-library(SC3)
-library(scater)
-library(dplyr)
-library(pheatmap)
-library(Seurat)
-library(dbscan)
-res=SCcluster(obj=res)
-res=getClusterGene(obj=res,method="Seurat")
-HeatmapCluster(obj=res,top=10)
-HeatmapCell(obj=res,top=10)
 ```
+
+An example to show how SCMarker improve identification of NK cell in GBM data.
