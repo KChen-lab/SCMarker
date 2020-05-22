@@ -52,4 +52,4 @@ head(res$marker)
 
 ```
 
-An example to show how SCMarker [improve identification of NK cell in GBM data.](https://github.com/KChen-lab/SCMarker/blob/master/test/SCMarker.NK.GBM.pdf)
+An example to show how SCMarker [improve identification of NK cell in GBM data.](https://github.com/KChen-lab/SCMarker/blob/master/test/SCMarker.GBM.NK.html)
