@@ -9,7 +9,7 @@ SCMarker is done based on two hypotheses:
 
 Developer
 ------------
-Fang Wang (fwang9@mdanderson.org)
+Fang Wang (fwang9@outlook.com)
 
 
 Marker selection
@@ -53,3 +53,7 @@ head(res$marker)
 ```
 
 An example to show how SCMarker [improve identification of NK cell in GBM data.](https://github.com/KChen-lab/SCMarker/blob/master/test/NK%20cell%20identification%20from%20GBM%20data.pdf)
+
+Publication
+-----------------------
+Wang, Fang, et al. "SCMarker: ab initio marker selection for single cell transcriptome profiling." PLoS computational biology 15.10 (2019): e1007445.
